@@ -1,0 +1,130 @@
+# Bridge Semântico MCP ↔ A2A — Configuração de Referência
+# Framework NL-Agent para Interoperabilidade Semântica
+# =====================================================
+
+bridge:
+  name: "MCP-A2A Semantic Bridge"
+  version: "1.0.0"
+  description: >
+    Bridge bidirecional para tradução semântica entre protocolos MCP e A2A,
+    preservando intenção comunicativa via consulta oracular (LLM/LRM).
+
+  # Endpoints dos protocolos
+  endpoints:
+    mcp:
+      host: "localhost"
+      port: 3000
+      transport: "stdio"         # stdio | sse | https
+      protocol_version: "2024-11-05"
+
+    a2a:
+      host: "agent.example.com"
+      port: 443
+      transport: "https"         # https | websocket
+      agent_card_path: "/.well-known/agent.json"
+
+  # Configuração de tradução semântica
+  translation:
+    strategy: "semantic_preserve"  # semantic_preserve | syntax_only | hybrid
+
+    # Oráculo Semântico (LLM — System 1)
+    oracle_semantic:
+      type: "llm"
+      model: "gemini-flash"
+      temperature: 0.1
+      max_tokens: 4096
+      timeout_ms: 5000
+      purpose: "Tradução sintática e inferência de tags/exemplos"
+
+    # Oráculo Raciocinador (LRM — System 2)
+    oracle_reasoning:
+      type: "lrm"
+      model: "claude-4-opus"
+      temperature: 0.0
+      max_tokens: 8192
+      timeout_ms: 60000
+      purpose: "Verificação de compliance FUNDEB/PDDE e cálculos orçamentários"
+
+    # Mapeamentos de capacidades
+    mappings:
+      - source: "mcp.tool"
+        target: "a2a.skill"
+        bidirectional: true
+
+      - source: "mcp.resource"
+        target: "a2a.task.input"
+        bidirectional: false
+
+      - source: "mcp.prompt"
+        target: "a2a.skill.examples"
+        bidirectional: false
+
+  # Validação via NL Reasoner
+  validation:
+    enabled: true
+    nl_reasoner: "default"
+    consistency_threshold: 0.95    # Mínimo de confiança para aceitar tradução
+    max_retries: 3
+    fallback: "notify_and_log"     # notify_and_log | reject | escalate_human
+
+  # Cache de traduções frequentes
+  cache:
+    enabled: true
+    ttl_seconds: 3600              # 1 hora
+    max_entries: 10000
+    storage: "memory"              # memory | redis | sheets
+
+  # Logging e telemetria
+  logging:
+    level: "info"                  # debug | info | warn | error
+    destination: "console"         # console | file | sheets
+    include_oracle_calls: true
+    include_translation_log: true
+
+  # Métricas de saúde
+  health:
+    check_interval_seconds: 30
+    sli:
+      latency_p50_target_ms: 150
+      latency_p99_target_ms: 900
+      success_rate_target: 0.96
+    slo:
+      monthly_error_budget: 0.032  # 3.2% (= 100% - 96.8%)
+
+# Configuração de Agentes SEDF (exemplo)
+agents:
+  transporte:
+    name: "Agente de Transporte Escolar (SGTE)"
+    protocol: "mcp"
+    capabilities:
+      - "gestao_rotas"
+      - "monitoramento_incidentes"
+      - "registro_presenca"
+    oracle_type: "lrm"            # Usa LRM para otimização de rotas
+
+  alimentacao:
+    name: "Agente de Alimentação Escolar (SGAE)"
+    protocol: "a2a"
+    capabilities:
+      - "gestao_cardapios"
+      - "controle_estoque"
+      - "compliance_nutricional"
+    oracle_type: "lrm"            # Usa LRM para cálculos nutricionais PNAE
+
+  validacao:
+    name: "Agente de Validação FUNDEB"
+    protocol: "acp"
+    capabilities:
+      - "verificacao_orcamentaria"
+      - "auditoria_prestacao_contas"
+      - "compliance_legal"
+    oracle_type: "lrm"            # SEMPRE LRM — tolerância a erro ≈ 0
+
+  apresentacao:
+    name: "Agente de Apresentação (Dashboard)"
+    protocol: "a2a"
+    capabilities:
+      - "render_dashboard"
+      - "render_metricas"
+      - "render_relatorios"
+    oracle_type: "llm"            # LLM para geração de descrições e resumos
