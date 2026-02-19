@@ -1,0 +1,48 @@
+{
+  "name": "framework-agentnl",
+  "version": "1.0.0",
+  "description": "Semantic Interoperability for Multi-Agent Systems via Natural Logic",
+  "main": "src/apps_script/event_bus.js",
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src/apps_script/*.js src/core/*.ts",
+    "lint:fix": "eslint --fix src/apps_script/*.js src/core/*.ts",
+    "format": "prettier --write \"src/**/*.{js,ts,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{js,ts,json,md}\"",
+    "check-types": "tsc --noEmit",
+    "validate": "npm run lint && npm run check-types && npm test"
+  },
+  "keywords": [
+    "mcp",
+    "a2a",
+    "anp",
+    "acp",
+    "agentic",
+    "semantic",
+    "natural-logic",
+    "multi-agent",
+    "google-apps-script"
+  ],
+  "author": "NL-Agent Framework <contato@nlagent.ai>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nlagent/fw.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nlagent/fw/issues"
+  },
+  "homepage": "https://github.com/nlagent/fw#readme",
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.2"
+  }
+}

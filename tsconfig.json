@@ -1,0 +1,50 @@
+{
+    "compilerOptions": {
+        // ─── Alvo e módulos ─────────────────────────────────────────────────
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "lib": [
+            "ESNext"
+        ],
+        // ─── Strict mode completo ───────────────────────────────────────────
+        "strict": true,
+        "noUncheckedIndexedAccess": true,
+        "noImplicitOverride": true,
+        "exactOptionalPropertyTypes": false,
+        // ─── Checks adicionais ──────────────────────────────────────────────
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,
+        "forceConsistentCasingInFileNames": true,
+        // ─── Interop ────────────────────────────────────────────────────────
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "isolatedModules": true,
+        "resolveJsonModule": true,
+        // ─── Output ─────────────────────────────────────────────────────────
+        "outDir": "./dist",
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        // ─── Paths ──────────────────────────────────────────────────────────
+        "baseUrl": ".",
+        "paths": {
+            "@core/*": [
+                "src/core/*"
+            ],
+            "@apps/*": [
+                "src/apps_script/*"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist",
+        "**/*.spec.ts",
+        "**/*.test.ts"
+    ]
+}

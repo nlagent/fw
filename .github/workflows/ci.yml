@@ -1,0 +1,79 @@
+# CI Pipeline — NL-Agent Framework
+# Executa lint, type-check e testes em cada push/PR para main.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  # ─── Python ────────────────────────────────────────────────────────────
+  python:
+    name: "Python ${{ matrix.python-version }}"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]"
+
+      - name: Ruff lint
+        run: ruff check src/ tests/
+
+      - name: Ruff format check
+        run: ruff format --check src/ tests/
+
+      - name: Mypy type check
+        run: mypy src/core/ --config-file pyproject.toml
+
+      - name: Pytest
+        run: pytest tests/ -v --tb=short
+
+      - name: Assertion Agent audit
+        run: python src/core/assertion_agent.py
+
+  # ─── JavaScript / TypeScript ───────────────────────────────────────────
+  node:
+    name: "Node ${{ matrix.node-version }}"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ["18", "20"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: Prettier check
+        run: npx prettier --check "src/**/*.{js,ts,json}"
+
+      - name: TypeScript type check
+        run: npm run check-types
+
+      - name: Vitest
+        run: npm test

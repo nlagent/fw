@@ -46,9 +46,18 @@ Uma **ontologia computacional** `O = ⟨C, R, I, A⟩` compreende:
 - **I** — Instâncias
 - **A** — Axiomas restritivos
 
-### 2.2 O Problema do Alinhamento
+### 2.2 O Problema do Alinhamento na Educação Pública
 
-Quando agentes utilizam ontologias distintas (e.g., SGTE define "aluno" por matrícula; SGAE por código nutricional), o **alinhamento ontológico** torna-se necessário:
+No ecossistema educacional, o problema do alinhamento ontológico manifesta-se de forma concreta e consequente. Cada sistema define suas entidades segundo lógicas próprias, criando **silos de inteligência** que fragmentam a visão institucional:
+
+| Sistema | Conceito de "Aluno" | Identificador | Consequência do Desalinhamento |
+|---------|---------------------|---------------|--------------------------------|
+| SGTE (Transporte) | Passageiro com escola-origem e escola-destino | Matrícula + código de rota | Aluno sem rota atribuída perde acesso ao transporte |
+| SGAE (Alimentação) | Beneficiário com perfil nutricional e restrições alimentares | Código nutricional + turma | Restrição alimentar não propagada pode causar risco à saúde |
+| Frequência | Presença diária vinculada a turma e disciplina | Registro diário + turno | Divergência com transporte: aluno "presente" sem rota registrada gera inconsistência FUNDEB |
+| Matrícula | Vínculo legal com a rede de ensino | Número de matrícula oficial | Base cadastral desatualizada invalida dados de todos os outros sistemas |
+
+O **alinhamento ontológico** formal resolve essas divergências:
 
 ```
 M = {⟨e₁, e₂, r, c⟩}
@@ -56,7 +65,7 @@ M = {⟨e₁, e₂, r, c⟩}
 
 Onde `e₁ ∈ O₁`, `e₂ ∈ O₂`, `r ∈ {≡, ⊑, ⊒, ⊥}` é a relação semântica e `c ∈ [0,1]` o grau de confiança.
 
-O framework resolve este problema via **consultas oraculares**: o oráculo semântico (LLM) analisa descrições em linguagem natural de cada conceito e produz o alinhamento automaticamente, com taxa de acerto de 89,3% em casos ambíguos.
+O framework resolve este problema via **consultas oraculares**: o oráculo semântico (LLM) analisa descrições em linguagem natural de cada conceito e produz o alinhamento automaticamente, com taxa de acerto de 89,3% em casos ambíguos. No contexto educacional, essa mediação é crítica: quando o agente de transporte informa que "o aluno João foi transportado", o agente de alimentação precisa compreender que *esse mesmo* João é o beneficiário do cardápio especial — uma tradução que exige tanto precisão técnica quanto consciência das consequências humanas de uma falha.
 
 ---
 
@@ -220,13 +229,21 @@ O Google Sheets funciona como **banco de dados relacional simplificado** na SEDF
 
 ---
 
-## 10. O Paradoxo do Poder versus Controle
+## 10. O Paradoxo do Poder versus Controle na Gestão Educacional
 
-A implementação prática revela o **Paradoxo do Poder vs. Controle**: usuários reconhecem a capacidade superior dos workflows autônomos, mas relatam perda de agência pessoal. A solução proposta é o paradigma da **Autonomia Supervisionada**:
+A implementação prática revela o **Paradoxo do Poder vs. Controle**: gestores educacionais reconhecem a capacidade superior dos workflows autônomos para processar milhares de registros, mas relatam simultaneamente uma sensação de **perda de agência pessoal** sobre decisões que afetam diretamente estudantes e comunidades.
 
-> "Não é um compromisso transitório, mas um modelo sociotécnico deliberado que busca simbiose produtiva entre agência humana e poder computacional."
+No ambiente escolar, esse paradoxo é amplificado por três fatores:
 
-O usuário torna-se um **"gerente de agentes"**: define objetivos, delega, monitora e intervém em pontos críticos.
+1. **Responsabilidade legal**: O gestor é pessoalmente responsável pela execução orçamentária — uma decisão algorítmica incorreta sobre o FUNDEB pode gerar glosas que comprometem o financiamento de toda uma escola
+2. **Impacto social direto**: Otimizações de rotas de transporte afetam crianças reais em comunidades vulneráveis — a eficiência não pode prevalecer sobre a equidade
+3. **Confiança institucional**: A credibilidade do sistema educacional perante pais, professores e órgãos de controle depende da percepção de que decisões são tomadas com discernimento humano, não delegadas cegamente a algoritmos
+
+A solução proposta é o paradigma da **Autonomia Supervisionada**:
+
+> "Não é um compromisso transitório, mas um modelo sociotécnico deliberado que busca simbiose produtiva e sustentável entre agência humana e poder computacional. O gestor torna-se um orquestrador, não um subordinado da máquina."
+
+O profissional de educação torna-se um **"gerente de agentes"**: define objetivos pedagógicos e logísticos, delega execução operacional a agentes especializados, monitora indicadores em dashboards transparentes e intervém em pontos críticos — como a validação de exceções orçamentárias, a arbitragem de conflitos entre rotas e a aprovação de cardápios nutricionais.
 
 ### Equação de Confiança
 
@@ -234,13 +251,13 @@ O usuário torna-se um **"gerente de agentes"**: define objetivos, delega, monit
 T = λ₁·E_x + λ₂·S_e + λ₃·P_v + λ₄·I_v
 ```
 
-| Variável | Significado             |
-|----------|-------------------------|
-| T        | Confiança total         |
-| E_x      | Explicabilidade         |
-| S_e      | Segurança               |
-| P_v      | Previsibilidade         |
-| I_v      | Identidade verificável  |
+| Variável | Significado             | Exemplo Educacional |
+|----------|-------------------------|---------------------|
+| T        | Confiança total         | Disposição do gestor em delegar decisões ao sistema |
+| E_x      | Explicabilidade         | Dashboard que mostra *por que* uma rota foi escolhida, não apenas *qual* |
+| S_e      | Segurança               | Garantia de que dados de menores de idade estão protegidos (LGPD) |
+| P_v      | Previsibilidade         | Comportamento consistente do sistema frente a cenários similares |
+| I_v      | Identidade verificável  | Certificação de que o agente que processou dados é autorizado |
 
 ---
 
@@ -261,24 +278,28 @@ T = λ₁·E_x + λ₂·S_e + λ₃·P_v + λ₄·I_v
 |                            | Jobs normais           | < 30s    |
 |                            | Relatórios complexos   | 2–5 min  |
 
-### 11.2 Três Pilares do Impacto Institucional
+### 11.2 Quatro Pilares do Impacto Institucional
 
-1. **Fortalecimento das Capacidades Institucionais** — Dados processados em silos seguros via IIFE, mas integrados semanticamente; risco de glosas FUNDEB reduzido em 97%
-2. **Interoperabilidade como Governança** — Agentes A2A com ciclos assíncronos substituem monolitos centralizadores; resposta a auditorias de dias para horas
-3. **Automação de Pesquisa Operacional** — Ciclo completo (coleta → validação oracular → síntese) populando dashboards em tempo real
+1. **Fortalecimento das Capacidades Institucionais** — Dados processados em silos seguros via IIFE, mas integrados semanticamente; risco de glosas FUNDEB reduzido em 97%. Unidades escolares ganham autonomia na geração de relatórios, reduzindo dependência da Coordenação Regional e fortalecendo a gestão democrática
+2. **Interoperabilidade como Governança** — Agentes A2A com ciclos assíncronos substituem monolitos centralizadores; resposta a auditorias de dias para horas. A fragmentação entre transporte, alimentação e frequência dá lugar a um ecossistema integrado onde o "aluno" é uma entidade unificada semanticamente
+3. **Automação de Pesquisa Operacional** — Ciclo completo (coleta via agentes especializados → validação oracular → análise de padrões → síntese em dashboards) populando informações estratégicas em tempo real, transformando dados brutos e fragmentados em conhecimento acionável para gestores
+4. **Equidade e Inclusão** — A auditabilidade algorítmica garante que otimizações de rotas, alocações alimentares e distribuição de recursos não desfavoreçam sistematicamente populações vulneráveis; cada decisão é rastreável e pode ser reconstituída para análise de impacto social
 
 ---
 
-## 12. Considerações Éticas
+## 12. Considerações Éticas na Educação Pública
 
-| Princípio         | Aplicação no Framework                                                          |
-|-------------------|----------------------------------------------------------------------------------|
-| Transparência     | Notificação explícita (`⊥`) quando tradução introduz incerteza                  |
-| Responsabilidade  | Autonomia Supervisionada como modelo de atribuição                               |
-| Privacidade       | Isolamento MCP + minimização de dados conforme LGPD (475 mil estudantes)         |
-| Viés              | Mitigação via TRiSM, especialmente em rotas de transporte e alocação alimentar   |
+| Princípio         | Aplicação no Framework                                                          | Impacto Educacional |
+|-------------------|----------------------------------------------------------------------------------|---------------------|
+| Transparência     | Notificação explícita (`⊥`) quando tradução introduz incerteza                  | Gestores sabem *quando* e *por que* uma decisão algorítmica é incerta, podendo intervir |
+| Responsabilidade  | Autonomia Supervisionada como modelo de atribuição                               | Cadeia de decisão sempre rastreável de volta a um responsável humano, protegendo gestores juridicamente |
+| Privacidade       | Isolamento MCP + minimização de dados conforme LGPD (475 mil estudantes)         | Dados de menores de idade transitam entre agentes em silos seguros, com acesso controlado |
+| Viés              | Mitigação via TRiSM, especialmente em rotas e alocação alimentar                | Populações vulneráveis protegidas de exclusão algorítmica sistemática |
+| Equidade          | Auditoria de impacto social integrada ao EventStore imutável                      | Decisões sobre transporte e alimentação são verificáveis quanto à distribuição equitativa |
 
-No contexto educacional da SEDF, a proteção de dados de 475 mil estudantes que transitam entre agentes de diferentes domínios exige que o isolamento contextual via IIFEs inclua mecanismos de **minimização de dados** e **anonimização**. Viéses na otimização de rotas de transporte escolar ou na alocação de recursos alimentares podem ter consequências reais sobre a **equidade no acesso à educação pública**.
+No contexto educacional, a ética não é um apêndice — é um **requisito de design**. A proteção de dados de 475 mil estudantes que transitam entre agentes de diferentes domínios exige que o isolamento contextual via IIFEs inclua mecanismos de **minimização de dados** e **anonimização**. Viéses na otimização de rotas de transporte escolar ou na alocação de recursos alimentares podem ter consequências reais sobre a **equidade no acesso à educação pública**: uma otimização que priorize custos pode sistematicamente desfavorecer alunos de zonas rurais ou comunidades de difícil acesso.
+
+A cadeia de responsabilidade em sistemas multi-agente complexos — onde um agente orquestrador delega tarefas a agentes especializados que, por sua vez, utilizam oráculos LLM para tradução semântica — torna-se especialmente relevante quando decisões algorítmicas impactam **populações tuteladas** (menores de idade). O framework de Autonomia Supervisionada proposto oferece uma abordagem pragmática, mantendo o humano como árbitro final em decisões com consequências sociais.
 
 ---
 
@@ -308,17 +329,24 @@ No contexto educacional da SEDF, a proteção de dados de 475 mil estudantes que
 
 ---
 
-## 15. Parceria UnDF-SEDF: Validação no Ecossistema de Inovação
+## 15. Parceria UnDF-SEDF: Validação no Ecossistema de Inovação Educacional
 
-A **Universidade do Distrito Federal (UnDF)** atua como parceira estratégica na validação empírica, configurando-se como **Universidade Empreendedora** fundamentada na tríplice missAo: ensino, pesquisa e Terceira Missão (transferência tecnológica e engajamento social).
+A **Universidade do Distrito Federal (UnDF)** atua como parceira estratégica na validação empírica, configurando-se como **Universidade Empreendedora** fundamentada na tríplice missão: ensino, pesquisa e Terceira Missão (transferência tecnológica e engajamento social). A parceria transcende a tradicional oferta de mão de obra de estágio, representando um **protocolo de governança** onde a inteligência humana supervisiona e refina a inteligência artificial.
 
-### Modelo de Estagário como Human-in-the-Loop
+### Modelo de Estagiário como Human-in-the-Loop
 
-Na arquitetura proposta, o discente da UnDF ocupa o papel de **"Human-in-the-Loop de Segunda Ordem"**:
+Na arquitetura proposta, o discente da UnDF ocupa o papel funcional de **"Human-in-the-Loop de Segunda Ordem"**:
 
-- Enquanto agentes MCP/A2A processam sintáxe e pragmática das operações
-- O estagiário realiza **auditoria ontológica** e **evolução dos oráculos epistêmicos**
-- Fecha o ciclo de retroalimentação necessário para evitar degradação do sistema em larga escala
+- Enquanto agentes MCP/A2A processam a sintaxe e pragmática das operações em escala (18.000 registros/dia)
+- O estagiário realiza **auditoria ontológica** — verifica que "aluno" no SGTE e "beneficiário" no SGAE referem-se à mesma entidade
+- Conduz a **evolução dos oráculos epistêmicos** — ajusta prompts, refina heurísticas de roteamento LLM/LRM, valida novas correspondências ontológicas
+- Fecha o ciclo de retroalimentação necessário para evitar degradação semântica do sistema em larga escala
+
+Esse modelo forma profissionais que transcendem o perfil de desenvolvedor, emergindo como **"gerentes de agentes"** — aptos para auditoria de oráculos epistêmicos, validação FUNDEB/PDDE e orquestração de workflows híbridos humano-IA.
+
+### Alinhamento com a Aprendizagem Baseada em Problemas (ABP)
+
+A escolha pedagógica da ABP não é acidental: ao enfrentar problemas reais de orquestração multi-agente em sistemas que atendem 475.000 estudantes, o estagiário desenvolve competências que a instrução convencional não oferece — pensamento sistêmico, governança algorítmica, literacia de dados e a capacidade de questionar criticamente decisões automatizadas que afetam populações vulneráveis.
 
 ### Tríplice Hélice em Território
 
@@ -332,15 +360,16 @@ Na arquitetura proposta, o discente da UnDF ocupa o papel de **"Human-in-the-Loo
 
 ## 16. Síntese da Exegese
 
-O framework NL-Agent não é meramente um produto de software — é uma **tese epistêmica materializada em código**:
+O framework NL-Agent não é meramente um produto de software — é uma **tese epistêmica materializada em código**, orientada fundamentalmente pela necessidade de transformar a gestão educacional pública:
 
-1. A **Lógica Natural** fundamenta a inferência e preservação semântica
-2. Os **protocolos (MCP, A2A, ANP, ACP)** são manifestações complementares de um paradigma de interoperabilidade
-3. Os **oráculos epistêmicos** (LLMs/LRMs) são mediadores semânticos que superam limitações formais
-4. A **Autonomia Supervisionada** equilibra poder computacional e agência humana
-5. A **validação empírica** na SEDF (215.000 LOC, 12.500 interações, 93,6% preservação) comprova a viabilidade prática
-6. A **parceria UnDF-SEDF** materializa a Terceira Missão universitária via Human-in-the-Loop de Segunda Ordem
-7. As **considerações éticas** (LGPD, viés, transparência) são integradas ao nível protocolar, não adicionadas *post hoc*
+1. A **Lógica Natural** fundamenta a inferência e preservação semântica — garantindo que a comunicação entre agentes respeite as relações de significado que sustentam decisões educacionais
+2. Os **protocolos (MCP, A2A, ANP, ACP)** são manifestações complementares de um paradigma de interoperabilidade — eliminando os silos de inteligência que fragmentam a gestão escolar
+3. Os **oráculos epistêmicos** (LLMs/LRMs) são mediadores semânticos que superam limitações formais — com a dualidade cognitiva refletindo a necessidade real de velocidade na interface e rigor no orçamento
+4. A **Autonomia Supervisionada** equilibra poder computacional e agência humana — elevando o gestor a orquestrador, não subordinando-o à máquina
+5. A **validação empírica** na SEDF (215.000 LOC, 12.500 interações, 93,6% preservação) comprova a viabilidade prática em escala real
+6. A **parceria UnDF-SEDF** materializa a Terceira Missão universitária via Human-in-the-Loop de Segunda Ordem, formando uma nova geração de gestores-orquestradores
+7. A **equidade educacional** é um princípio de design: auditabilidade, rastreabilidade e mitigação de viés são integradas ao nível protocolar, protegendo 475.000 estudantes
+8. A **democratização tecnológica** — via infraestrutura acessível (Sheets-as-Database, Apps Script) — garante que a sofisticação arquitetural não exija sofisticação financeira, tornando a solução replicável em qualquer rede de ensino
 
 > *"A convergência dos protocolos MCP, A2A e ACP não é meramente técnica — representa uma transformação paradigmática na forma como concebemos a comunicação entre entidades artificiais. Assim como a linguagem natural evoluiu para permitir a cooperação humana complexa, estes protocolos estabelecem as fundações para uma nova era de colaboração entre agentes artificiais, onde a compreensão mútua transcende diferenças sintáticas e ontológicas."*
 >

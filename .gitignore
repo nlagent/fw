@@ -1,0 +1,63 @@
+# ============================================================================
+# .gitignore — NL-Agent Framework
+# ============================================================================
+
+# ─── Python ──────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+build/
+develop-eggs/
+eggs/
+sdist/
+wheels/
+venv/
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+coverage.xml
+robustness_report.json
+
+# ─── Node / JavaScript / TypeScript ─────────────────────────────────────
+node_modules/
+dist/
+.eslintcache
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+*.tsbuildinfo
+
+# ─── Environment & Secrets ──────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+.apps_script_id
+*.pem
+*.key
+
+# ─── IDEs & Editors ─────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# ─── OS ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+
+# ─── Misc ────────────────────────────────────────────────────────────────
+*.log
+*.tmp
+*.bak
+*.orig

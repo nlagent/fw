@@ -37,7 +37,7 @@ Protocolo descentralizado para descoberta e estabelecimento de confiança em red
 Infraestrutura análoga ao DNS para agentes, traduzindo identificadores legíveis em localizações de rede e metadados de capacidade, com PKI nativa integrada (Raskar et al., 2025).
 
 ### Autonomia Supervisionada
-Paradigma sociotécnico onde o humano atua como "gerente de agentes" — define objetivos, delega, monitora e intervém em pontos críticos, sem substituição total nem controle manual completo.
+Paradigma sociotécnico onde o humano atua como "gerente de agentes" — define objetivos pedagógicos e logísticos, delega execução operacional, monitora indicadores em dashboards e intervém em pontos críticos de decisão (validação de exceções orçamentárias, arbitragem de rotas de transporte). Não é substituição nem controle manual total, mas simbiose deliberada entre agência humana e poder computacional.
 
 ---
 
@@ -66,16 +66,16 @@ Definições formais de estrutura de cada aba do Google Sheets — nomes de colu
 Requisitos para que um ato de fala seja bem-sucedido: Conteúdo Proposicional, Preparatória, Sinceridade e Essencial.
 
 ### ConfigManager
-Agente de infraestrutura MCP (Config Oracle) com 23 referências no codebase SEDF, responsável por configurações contextuais.
+Agente de infraestrutura MCP (Config Oracle) com 23 referências no codebase, responsável por configurações contextuais.
 
 ### Context Keeper
-Agente teórico MCP responsável por manter o estado do contexto. Implementado como `SessionManager` na SEDF.
+Agente teórico MCP responsável por manter o estado do contexto. Implementado como `SessionManager` em produção.
 
 ### CoT — Chain-of-Thought
 Técnica de raciocínio em cadeia utilizada por LRMs para garantir que respostas não sejam meramente probabilísticas, mas logicamente derivadas.
 
 ### CRE-PP — Coordenação Regional de Ensino do Plano Piloto
-Unidade da SEDF onde os sistemas multi-agentes (SGTE/SGAE) foram validados empiricamente.
+Unidade da gestão educacional onde os sistemas multi-agentes (SGTE/SGAE) foram validados empiricamente.
 
 ---
 
@@ -85,14 +85,20 @@ Unidade da SEDF onde os sistemas multi-agentes (SGTE/SGAE) foram validados empir
 Identificadores descentralizados (W3C) que permitem identidade criptográfica única para cada agente, independente de servidor central de autenticação.
 
 ### Disclosure Mínimo
-Princípio de que agentes provam atributos sem expor dados sensíveis, alinhado à LGPD.
+Princípio de que agentes provam atributos sem expor dados sensíveis, alinhado à LGPD. No contexto educacional, garantir que agentes possam verificar a elegibilidade de um aluno para transporte escolar sem revelar seus dados pessoais completos.
+
+### Democratização Tecnológica
+Princípio arquitetural de que sistemas multi-agentes robustos podem ser construídos sobre infraestrutura acessível (Google Sheets, Apps Script), eliminando barreiras de adoção para secretarias de educação com orçamentos limitados e tornando a solução replicável em qualquer rede de ensino.
 
 ---
 
 ## E
 
 ### EventBus
-Implementação do padrão Pub/Sub para comunicação A2A desacoplada entre agentes no backend SEDF.
+Implementação do padrão Pub/Sub para comunicação A2A desacoplada entre agentes no backend. Exemplo: quando o agente de transporte notifica um incidente, o evento é propagado para os agentes de frequência e alimentação sem acoplamento direto.
+
+### Equidade Educacional
+Princípio de design que garante que decisões algorítmicas sobre rotas de transporte, distribuição alimentar e alocação orçamentária não desfavoreçam sistematicamente populações vulneráveis. Implementado via auditabilidade no EventStore e mitigação de viés no TRiSM.
 
 ### EventStore
 Mecanismo de persistência imutável e sequencial de eventos, permitindo auditoria forense e replay para recuperação de estado.
@@ -122,10 +128,10 @@ Rejeição de despesas em prestações de contas públicas (FUNDEB/PDDE) por inc
 ## H
 
 ### Heurística de Roteamento
-Mecanismo do Agente Orquestrador que classifica tarefas por complexidade e as direciona para LLMs (transformação, resumo) ou LRMs (planejamento, aritmética, compliance).
+Mecanismo do Agente Orquestrador que classifica tarefas por complexidade e as direciona para LLMs (transformação, resumo — System 1) ou LRMs (planejamento, aritmética, compliance FUNDEB — System 2), evitando o anti-padrão do "Monolito de Modelo".
 
 ### Human-in-the-Loop
-Modelo de supervisão humana contínua sobre sistemas de IA. Na parceria UnDF-SEDF, o estagiário atua como "Human-in-the-Loop de Segunda Ordem".
+Modelo de supervisão humana contínua sobre sistemas de IA. Na parceria universidade-campo, o estagiário atua como "Human-in-the-Loop de Segunda Ordem", auditando traduções semânticas e evoluindo oráculos epistêmicos.
 
 ---
 
@@ -138,7 +144,10 @@ Padrão JavaScript de execução imediata que encapsula estado privado e expõe 
 Proliferação excessiva de dados digitais que sobrecarrega a capacidade cognitiva humana (Zhang et al., 2024).
 
 ### Interoperabilidade Semântica
-Capacidade de sistemas heterogêneos trocarem informações preservando significado, intenção e contexto. Taxa alcançada: 93,6%.
+Capacidade de sistemas heterogêneos trocarem informações preservando significado, intenção e contexto. Taxa alcançada: 93,6%. No contexto educacional, garante que "aluno" no sistema de transporte, "beneficiário" no sistema de alimentação e "matrícula" no sistema de frequência refiram-se à mesma entidade.
+
+### Inteligência Institucional
+Capacidade de uma organização educacional de aprender, adaptar-se e decidir de forma integrada. Transcende a mera automação operacional, permitindo que gestores transformem dados brutos e fragmentados em conhecimento acionável para planejamento estratégico.
 
 ### IoA — Internet of Agents
 Visão futura de uma rede global de agentes autônomos interoperáveis, análoga à Internet atual para humanos (Wang et al., 2025).
@@ -183,8 +192,11 @@ Epistemologia que fundamenta o framework, enfatizando inferência intuitiva e pr
 ### MCP — Model Context Protocol
 Protocolo cliente-servidor para integração de modelos de linguagem com fontes externas. Topologia: Host → Clientes → Servidores. Primitivos: Resources, Tools, Prompts.
 
+### Monolito Administrativo
+Anti-padrão onde um sistema único concentra todas as funções de gestão educacional, gerando indisponibilidade total quando falha e impossibilidade de atualização parcial. Solução: decomposição em agentes por domínio (transporte, alimentação, frequência).
+
 ### Monolito de Modelo
-Anti-padrão que trata toda IA como igual, ignorando a dualidade LLM/LRM e suas implicações de latência, custo e precisão.
+Anti-padrão que trata toda IA como igual, ignorando a dualidade LLM/LRM e suas implicações de latência, custo e precisão. No contexto educacional, leva a usar LLMs para cálculos FUNDEB (risco de alucinação) ou LRMs para gerar resumos de reuniões (custo proibitivo e latência desnecessária).
 
 ---
 
@@ -263,7 +275,10 @@ Abordagem arquitetural onde Google Sheets funciona como banco de dados relaciona
 Paradigma que define a inovação como propriedade emergente de um sistema complexo de relações entre instituições públicas e privadas.
 
 ### SWEBOK — Software Engineering Body of Knowledge
-Corpo de conhecimento em engenharia de software usado como referência para competências no estágio de Engenharia de Software (UnDF-SEDF).
+Corpo de conhecimento em engenharia de software usado como referência para competências profissionais.
+
+### Silos de Inteligência
+Sistemas isolados (matrícula, frequência, transporte, alimentação) que não compartilham contexto semântico. Um "aluno" é representado de formas divergentes em cada sistema, gerando inconsistências que podem resultar em glosas no FUNDEB. O framework elimina esses silos via interoperabilidade semântica.
 
 ---
 
@@ -293,7 +308,7 @@ Interface TypeScript do framework que define modelo de capacidades agnóstico a 
 ## V
 
 ### ValidationService
-Agente de validação autônomo que verifica integridade de dados em tempo real, atuando como "cidadão de primeira classe" no ecossistema SEDF.
+Agente de validação autônomo que verifica integridade de dados em tempo real, atuando como "cidadão de primeira classe" no ecossistema. Implementa a Heurística 3: intercepta preventivamente transações que violem regras orçamentárias do FUNDEB/PDDE, atuando como auditor em tempo real que blinda gestores contra glosas.
 
 ### VCs — Verifiable Credentials
 Credenciais verificáveis que permitem a agentes provarem atributos sem expor dados sensíveis, complementando a identidade DID.

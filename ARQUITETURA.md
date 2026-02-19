@@ -6,7 +6,7 @@
 
 ## 1. Visão Geral da Arquitetura Multinível
 
-O framework opera em **três camadas** verticais e **três níveis hierárquicos** horizontais:
+O framework opera em **três camadas** verticais e **três níveis hierárquicos** horizontais, refletindo diretamente a estrutura organizacional do ecossistema educacional: a camada de inferência processa a lógica semântica que sustenta decisões; a camada de abstração traduz entre os domínios heterogêneos da gestão escolar (transporte, alimentação, frequência); e a camada de adaptadores conecta-se aos protocolos de comunicação que viabilizam a interoperabilidade em escala.
 
 ### 1.1 Camadas Verticais
 
@@ -33,13 +33,13 @@ O framework opera em **três camadas** verticais e **três níveis hierárquicos
 └──────────────────────────────────────────────────────────────┘
 ```
 
-### 1.2 Níveis Hierárquicos (SEDF)
+### 1.2 Níveis Hierárquicos (Gestão Educacional)
 
-| Nível        | Função                | Agentes                               | Protocolo  |
-|--------------|-----------------------|---------------------------------------|------------|
-| Estratégico  | Consolidação regional | Agente Orquestrador CRE               | A2A Tasks  |
-| Tático       | Operações por domínio | Transporte, Alimentação, Frequência   | MCP Context|
-| Operacional  | Persistência          | SheetRepository, DriveService, Cache  | Acesso direto|
+| Nível        | Função                | Agentes                               | Protocolo  | Impacto Educacional |
+|--------------|-----------------------|---------------------------------------|------------|---------------------|
+| Estratégico  | Consolidação regional | Agente Orquestrador CRE               | A2A Tasks  | Visão integrada de 680 escolas para planejamento de políticas regionais |
+| Tático       | Operações por domínio | Transporte, Alimentação, Frequência   | MCP Context| Gestão operacional que impacta diretamente 475.000 estudantes |
+| Operacional  | Persistência          | SheetRepository, DriveService, Cache  | Acesso direto| Dados estruturados em infraestrutura acessível (Sheets-as-Database) |
 
 ---
 
@@ -307,13 +307,15 @@ Sequência de estabelecimento de conexão:
 
 ## 8. Taxonomia de Agentes Educacionais
 
-| Categoria              | Função                       | Exemplos                                  | Protocolo |
-|------------------------|------------------------------|-------------------------------------------|-----------|
-| Agentes de Contexto    | Estado e configurações       | SessionManager, ConfigManager             | MCP       |
-| Agentes de Domínio     | Regras de negócio            | TransporteService, AlimentacaoService     | A2A       |
-| Agentes de Validação   | Integridade de dados         | ValidationService, SchemaValidator        | ACP       |
-| Agentes de Integração  | Sistemas externos            | GoogleMapsService, DriveService           | MCP       |
-| Agentes de Apresentação| Renderização de interfaces   | RenderDashboard, RenderRelatorios         | ANP       |
+| Categoria              | Função                       | Exemplos                                  | Protocolo | Aplicação Educacional |
+|------------------------|------------------------------|-------------------------------------------|-----------|-----------------------|
+| Agentes de Contexto    | Estado e configurações       | SessionManager, ConfigManager             | MCP       | Preservam contexto do gestor entre interações, garantindo continuidade de sessão |
+| Agentes de Domínio     | Regras de negócio            | TransporteService, AlimentacaoService     | A2A       | Processam regras específicas de cada área: otimização de rotas, cálculo nutricional |
+| Agentes de Validação   | Integridade de dados         | ValidationService, SchemaValidator        | ACP       | Verificam conformidade FUNDEB/PDDE em tempo real, evitando glosas |
+| Agentes de Integração  | Sistemas externos            | GoogleMapsService, DriveService           | MCP       | Conectam dados escolares a serviços geográficos e de armazenamento |
+| Agentes de Apresentação| Renderização de interfaces   | RenderDashboard, RenderRelatorios         | ANP       | Transformam dados brutos em dashboards acionáveis para gestores |
+
+Cada agente opera sob o princípio da **Heurística 1** (Um Agente por Responsabilidade FUNDEB): categorias de despesa distintas são geridas por agentes especializados, facilitando prestação de contas precisa e auditoria eficiente. A **Heurística 3** (Validação como Cidadão de Primeira Classe) garante que o Agente de Validação intercepte preventivamente transações que violem regras orçamentárias dinâmicas, atuando como auditor em tempo real.
 
 ---
 
@@ -551,10 +553,11 @@ As perdas semanticas residuais concentram-se em tres categorias:
 
 ---
 
-## 15. Estrategia de Resiliencia e Recuperacao
+## 15. Estratégia de Resiliência e Recuperação
 
-A arquitetura adota a **falha progressiva** (graceful degradation) para assegurar que a indisponibilidade de agentes perifericos nao comprometa o nucleo operacional:
+A arquitetura adota a **falha progressiva** (graceful degradation) para assegurar que a indisponibilidade de agentes periféricos não comprometa o núcleo operacional. No contexto educacional, isso significa que a falha de um agente de integração geográfica não impede o processamento de presença escolar, e a indisponibilidade de um oráculo LRM não bloqueia o registro de incidentes de transporte:
 
-- **EventStore**: Registro imutavel e sequencial de transacoes para auditoria forense e replay automatico
-- **Notificacoes estruturadas**: Falhas de mapeamento geram eventos no EventBus com estrategias de recuperacao (decomposicao recursiva, delegacao dinamica, oraculos epistemicos)
-- **Completude do Mapeamento (Teorema 3)**: Para todo `c` em Cap(P1), existe `c'` em Cap(P2) tal que M(c) = c' ou M(c) = bottom -- a notacao bottom garante notificacao explicita quando nao ha correspondencia
+- **EventStore**: Registro imutável e sequencial de transações para auditoria forense e replay automático — essencial para reconstituir decisões algorítmicas em auditorias do FUNDEB
+- **Notificações estruturadas**: Falhas de mapeamento geram eventos no EventBus com estratégias de recuperação (decomposição recursiva, delegação dinâmica, oráculos epistêmicos)
+- **Completude do Mapeamento (Teorema 3)**: Para todo `c` em Cap(P1), existe `c'` em Cap(P2) tal que M(c) = c' ou M(c) = bottom -- a notação bottom garante notificação explícita quando não há correspondência
+- **Auditabilidade como princípio**: Cada decisão algorítmica é rastreável, permitindo que gestores, auditores e órgãos de controle verifiquem a cadeia completa de raciocínio que levou a uma ação sobre dados de estudantes
